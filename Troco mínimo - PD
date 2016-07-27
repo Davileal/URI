@@ -1,0 +1,28 @@
+//Troco mínimo usando programação dinâmica
+#include <iostream>
+
+using namespace std;
+
+int num_moedas(int troco, int qtd_moedas, int *moedas){
+    int PD[troco + 1];
+    //Caso base
+    PD[0] = 0;
+    //Subproblemas
+    for(int i=1; i<=troco; i++){
+        PD[i] = 100000;
+        for(int j=0; j<qtd_moedas; j++){
+            if(i-moedas[j]>=0){
+                PD[i] = min(PD[i],PD[i-moedas[j]]+1);
+            }
+        }
+    }
+    return PD[troco];
+}
+
+int main(){
+    int moedas[4] = {1,2,10,50};
+    int troco = 100;
+    int qtd_moedas = 4;
+    cout<<num_moedas(troco,qtd_moedas, moedas)<<endl;
+
+}
